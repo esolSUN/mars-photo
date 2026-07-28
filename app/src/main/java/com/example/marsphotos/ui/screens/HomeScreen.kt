@@ -35,6 +35,9 @@ import androidx.compose.ui.unit.dp
 import com.example.marsphotos.R
 import com.example.marsphotos.model.MarsPhoto
 import com.example.marsphotos.ui.theme.MarsPhotosTheme
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun HomeScreen(
@@ -44,7 +47,7 @@ fun HomeScreen(
 ) {
     when (marsUiState) {
         is MarsUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-        is MarsUiState.Success -> ResultScreen(
+        is MarsUiState.Success -> MarsPhotoCard(
             marsUiState.photos, modifier = modifier.fillMaxWidth()
         )
         is MarsUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
@@ -91,6 +94,24 @@ fun ResultScreen(photos: String, modifier: Modifier = Modifier) {
     ) {
         Text(text = photos)
     }
+}
+
+
+@Composable
+fun MarsPhotoCard(
+    photo: MarsPhoto,
+    modifier: Modifier = Modifier
+) {
+    AsyncImage(
+        model = ImageRequest.Builder(
+            LocalContext.current
+        )
+            .data(photo.imgSrc)
+            .build(),
+
+        contentDescription = null,
+        modifier = modifier.fillMaxWidth()
+    )
 }
 
 @Preview(showBackground = true)
