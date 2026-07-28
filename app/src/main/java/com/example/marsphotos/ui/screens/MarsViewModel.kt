@@ -35,7 +35,7 @@ import java.io.IOException
  * UI state for the Home screen
  */
 sealed interface MarsUiState {
-    data class Success(val photos: MarsPhoto) : MarsUiState
+    data class Success(val photos: List<MarsPhoto>) : MarsUiState
     object Error : MarsUiState
     object Loading : MarsUiState
 }
@@ -63,7 +63,7 @@ class MarsViewModel(private val marsPhotosRepository: MarsPhotosRepository) : Vi
                 val listResult = marsPhotosRepository.getMarsPhotos()
                 MarsUiState.Success(
 
-                    marsPhotosRepository.getMarsPhotos()[0]
+                    listResult
                 )
             } catch (e: IOException) {
                 MarsUiState.Error
