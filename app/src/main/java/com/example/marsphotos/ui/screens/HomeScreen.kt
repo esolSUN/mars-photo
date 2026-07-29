@@ -171,7 +171,7 @@ fun PhotosGridScreen(
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(150.dp),
+        columns = GridCells.Adaptive(50.dp),
         modifier = modifier.padding(horizontal = 4.dp),
         contentPadding = contentPadding
     ) {
